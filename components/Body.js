@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { restaurantList } from "./config";
 import RestaurantCard from "./restuarantCard";
+import Shimmer from "./shimmer";
 
 function filterData(searchText, restaurants) {
   const filterData = restaurants.filter((element) =>
-    element.info.name.includes(searchText)
+    element.info.name.toLowerCase().includes(searchText.toLowerCase())
   );
   return filterData;
 }
 
 const Body = () => {
   const [searchText, setSearchText] = useState("");
-
-  const [restaurants, setRestaurants] = useState(restaurantList);
+const [allRestaurants,setAllRestaurants]=useState([])
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
   useEffect(() => {
     getRestaurants();
@@ -23,12 +24,18 @@ const Body = () => {
     );
     const json = await data.json();
     console.log(json);
-    setRestaurants(
+    setAllRestaurants(
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
+    setFilteredRestaurants(
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    
   }
 
-  return (
+  return allRestaurants.length === 0 ? (
+    <Shimmer />
+  ) : (
     <>
       <div className="search-container">
         <input
@@ -44,18 +51,16 @@ const Body = () => {
           className="search-btn "
           onClick={() => {
             /*need to filter data*/
-            const data = filterData(searchText, restaurants);
-            setRestaurants(data);
+            const data = filterData(searchText, allRestaurants);
+            setFilteredRestaurants(data);
           }}
         >
           Search
         </button>
-        {/**my own code */}
-        <button onClick={() => setRestaurants(restaurantList)}>reset</button>
-        {/**my own code ends */}
+        
       </div>
       <div className="restaurant-list">
-        {restaurants.map((restaurant) => {
+        {filteredRestaurants.map((restaurant) => {
           return (
             <RestaurantCard {...restaurant.info} key={restaurant.info.id} />
           );
