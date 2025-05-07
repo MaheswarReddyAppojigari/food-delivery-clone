@@ -3,10 +3,10 @@ import { restaurantList } from "./config";
 import RestaurantCard from "./restuarantCard";
 
 function filterData(searchText, restaurants) {
-  const data = restaurants.filter((element) =>
+  const filterData = restaurants.filter((element) =>
     element.info.name.includes(searchText)
   );
-  return data;
+  return filterData;
 }
 
 const Body = () => {
