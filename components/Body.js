@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { restaurantList } from "./config";
 import RestaurantCard from "./restuarantCard";
 
@@ -10,8 +10,24 @@ function filterData(searchText, restaurants) {
 }
 
 const Body = () => {
-  const [searchText, setsearchText] = useState("");
-  const [restaurants, setrestaurants] = useState(restaurantList);
+  const [searchText, setSearchText] = useState("");
+
+  const [restaurants, setRestaurants] = useState(restaurantList);
+
+  useEffect(() => {
+    getRestaurants();
+  }, []);
+  async function getRestaurants() {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+    );
+    const json = await data.json();
+    console.log(json);
+    setRestaurants(
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+  }
+
   return (
     <>
       <div className="search-container">
@@ -21,7 +37,7 @@ const Body = () => {
           placeholder="search"
           value={searchText}
           onChange={(e) => {
-            setsearchText(e.target.value);
+            setSearchText(e.target.value);
           }}
         />
         <button
@@ -29,13 +45,13 @@ const Body = () => {
           onClick={() => {
             /*need to filter data*/
             const data = filterData(searchText, restaurants);
-            setrestaurants(data);
+            setRestaurants(data);
           }}
         >
           Search
         </button>
         {/**my own code */}
-        <button onClick={() => setrestaurants(restaurantList)}>reset</button>
+        <button onClick={() => setRestaurants(restaurantList)}>reset</button>
         {/**my own code ends */}
       </div>
       <div className="restaurant-list">
@@ -49,3 +65,4 @@ const Body = () => {
   );
 };
 export default Body;
+//"https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
