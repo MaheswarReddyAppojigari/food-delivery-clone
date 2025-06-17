@@ -4,22 +4,10 @@ import Header from "../components/Header.js";
 import Body from "../components/Body.js";
 import Footer from "../components/Footer.js";
 import { IMG_CDN_URL } from "../components/config.js";
+import { createBrowserRouter, RouterProvider } from "react-router";
+import About from "../components/About.js";
+import Error from "../components/Error.js";
 
-const RestaurantCard = ({
-  name,
-  cloudinaryImageId,
-  cuisines,
-  avgRatingString,
-}) => {
-  return (
-    <div className="card">
-      <img src={IMG_CDN_URL + cloudinaryImageId}></img>
-      <h2>{name}</h2>
-      <h3>{cuisines.join(" ")}</h3>
-      <h4>{avgRatingString} Stars</h4>
-    </div>
-  );
-};
 
 const AppLayout = () => {
   return (
@@ -30,5 +18,18 @@ const AppLayout = () => {
     </>
   );
 };
+const appRouter=createBrowserRouter([
+
+{
+  path:'/',
+  element:<AppLayout/>,
+  errorElement:<Error/>
+}
+,{
+
+  path:'/about',
+  element:<About/>
+}
+])
 let root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<AppLayout />);
+root.render(<RouterProvider router={appRouter}/>);
