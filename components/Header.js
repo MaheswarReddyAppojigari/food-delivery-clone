@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Link } from "react-router";
 const loggedInUser = () => {
   return true;
 };
@@ -21,9 +21,9 @@ const Header = () => {
       <h1 className="titletext">food warriors</h1>
       <div className="nav-items">
         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact</li>
+        <li><Link to='/'> Home</Link> </li>
+       <li>  <Link to='/about'> about</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
           <li>
             <i class="fa-solid fa-cart-shopping"></i>
           </li>

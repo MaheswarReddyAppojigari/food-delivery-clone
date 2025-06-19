@@ -36,3 +36,107 @@ background:lightgray ;
 margin: 20px;
 
 }
+/* Base styles for restaurant details container */
+.restaurant-details {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 15px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Styling the first div (text info) */
+.restaurant-details > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Restaurant ID & Name */
+.restaurant-details h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+.restaurant-details h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #34495e;
+}
+
+/* Smaller headings for location and ratings */
+.restaurant-details h3 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #555;
+  margin-top: 2px;
+}
+
+/* Image styling */
+.restaurant-details img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  object-fit: cover;
+  margin-top: 10px;
+}
+
+/* Responsive layout - for larger screens, arrange divs side by side */
+@media (min-width: 700px) {
+  .restaurant-details {
+    flex-direction: row;
+    gap: 40px;
+  }
+
+  /* Left side text info */
+  .restaurant-details > div:first-child {
+    flex: 1.2;
+    padding-right: 20px;
+    gap: 10px;
+  }
+
+  /* Image container */
+  .restaurant-details img {
+    flex: 1;
+    max-height: 300px;
+  }
+}
+
+/* Smaller devices adjustments */
+@media (max-width: 400px) {
+  .restaurant-details h1 {
+    font-size: 1.4rem;
+  }
+
+  .restaurant-details h2 {
+    font-size: 1.2rem;
+  }
+
+  .restaurant-details h3 {
+    font-size: 1rem;
+  }
+} 
+.restaurant-details img {
+  width: 300px;
+  height: 200px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  object-fit: cover;
+  margin-top: 10px;
+}
+
+@media (max-width: 350px) {
+  .restaurant-details img {
+    width: 100%;
+    height: auto;
+  }
+}
