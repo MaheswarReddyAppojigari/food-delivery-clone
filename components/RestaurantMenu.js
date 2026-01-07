@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { IMG_CDN_URL } from "./config";
+import Shimmer from "./shimmer.js"
 function Error({error}){
 return <div>
 <h1>{error}</h1>
@@ -23,7 +24,8 @@ const json =await fetch(`https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_M
 setRestaurantMenu(json.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards[1].card.card.itemCards);
 setRestaurantDetails(json.data.cards[2].card.card.info)
 }
-  return restaurantMenu&&( error?<Error error={error}/>:(
+
+  return !restaurantMenu?<Shimmer/>:( error?<Error error={error}/>:(
     <div><div className="restaurant-details">
   
 
@@ -36,7 +38,10 @@ setRestaurantDetails(json.data.cards[2].card.card.info)
   </div>
  <div>
 <h1>Menu</h1>
+<ul>
 
+  {restaurantMenu.map(item=><li>{item.card.info.name}</li>)}
+</ul>
  </div>
     
   
